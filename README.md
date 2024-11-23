@@ -1,10 +1,23 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Blog Frontend
+
+Built using nextjs/typecript
+
+```bash
+Server side repo - https://github.com/rahul-sharma13/nextBlog
+```
+
+
 
 ## Getting Started
+
+```bash
+clone this repository - git clone https://github.com/rahul-sharma13/nextBlog-client.git
+```
 
 First, run the development server:
 
 ```bash
+npm install
 npm run dev
 # or
 yarn dev
@@ -16,21 +29,28 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+App directory - consists of the layout and root page of the project
 
-## Learn More
+component - consists of all the component used, while ui inside the component directory is used for common components
 
-To learn more about Next.js, take a look at the following resources:
+lib - utils.ts(shadcn file)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+types - used for file with type declarations
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+middleware.ts - for using middlewares in next
 
-## Deploy on Vercel
+other than this most of the files are for configuration of shadcn or tailwind or next js
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Tech Used
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+Axios - provides more default settings than fetch(better option would be to using it with react-query for client side caching and easy management of states)
+
+shadcn and tailwind - shadcn is highly customisable library, makes it easy to Used
+
+moment(module) - to get dates
+```
