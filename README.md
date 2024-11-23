@@ -33,6 +33,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ```bash
 App directory - consists of the layout and root page of the project
+(auth)/login & (auth)/signup - grouped routing for login and sign up page.
+blog/create/page.tsx - for blog creation page
+dashboard/page.tsx - for dashboard page
 
 component - consists of all the component used, while ui inside the component directory is used for common components
 
