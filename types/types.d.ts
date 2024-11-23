@@ -4,12 +4,11 @@ export interface BlogPost {
   _id: string;
   title: string;
   content: string;
-  authorId: Author;
   createdAt: string;
-}
-
-export interface Author {
-  email: string;
+  authorId?: {
+    email: string;
+    _id: string;
+  };
 }
 
 export interface formDataType {
