@@ -1,11 +1,55 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+
+// component and type imports
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
-import React from "react";
+import { formDataType } from "@/types/types";
 
 const SignUp = () => {
+  const [formData, setFormData] = useState<formDataType>({
+    email: "",
+    password: "",
+  });
+  const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
+
+  // handling changes in form data
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+    console.log(formData);
+  };
+
+  // to handle sign up
+  const userSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/auth/signup",
+        formData
+      );
+      console.log("sign up success", response.data);
+      if (response.status === 200) {
+        router.push("/login");
+      }
+      setLoading(false);
+    } catch (error) {
+      console.log("sign up failed", error);
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+      {/* heading  */}
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
           Sign up
@@ -13,7 +57,8 @@ const SignUp = () => {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6">
+        {/* sign up inputs */}
+        <form className="space-y-6" onSubmit={userSignUp}>
           <div>
             <label
               htmlFor="email"
@@ -28,6 +73,7 @@ const SignUp = () => {
                 type="email"
                 required
                 className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm/6"
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -48,6 +94,7 @@ const SignUp = () => {
                 type="password"
                 required
                 className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm/6"
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -55,9 +102,10 @@ const SignUp = () => {
           <div>
             <Button
               type="submit"
+              disabled={loading}
               className="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
             >
-              Sign up
+              {loading ? "Please wait" : "Sign up"}
             </Button>
           </div>
         </form>

@@ -9,5 +9,10 @@ export interface BlogPost {
 }
 
 export interface Author {
-    email : string
+  email: string;
+}
+
+export interface formDataType {
+  email: string;
+  password: string;
 }
