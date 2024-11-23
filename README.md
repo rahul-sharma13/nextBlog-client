@@ -36,6 +36,8 @@ App directory - consists of the layout and root page of the project
 
 component - consists of all the component used, while ui inside the component directory is used for common components
 
+hooks - for custom hooks
+
 lib - utils.ts(shadcn file)
 
 types - used for file with type declarations
