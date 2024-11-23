@@ -1,51 +1,15 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import axios from "axios";
 
-// component and type imports
+// component and hook imports
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { formDataType } from "@/types/types";
+import useSignup from "@/hooks/useSignup";
 
 const SignUp = () => {
-  const [formData, setFormData] = useState<formDataType>({
-    email: "",
-    password: "",
-  });
-  const [loading, setLoading] = useState<boolean>(false);
-  const router = useRouter();
-
-  // handling changes in form data
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    });
-    console.log(formData);
-  };
-
-  // to handle sign up
-  const userSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const response = await axios.post(
-        "http://localhost:8000/api/v1/auth/signup",
-        formData
-      );
-      console.log("sign up success", response.data);
-      if (response.status === 200) {
-        router.push("/login");
-      }
-      setLoading(false);
-    } catch (error) {
-      console.log("sign up failed", error);
-      setLoading(false);
-    }
-  };
+  const { formData, loading, errorMessage, handleChange, userSignUp } =
+    useSignup();
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -71,7 +35,6 @@ const SignUp = () => {
                 id="email"
                 name="email"
                 type="email"
-                required
                 className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm/6"
                 onChange={handleChange}
               />
@@ -92,7 +55,6 @@ const SignUp = () => {
                 id="password"
                 name="password"
                 type="password"
-                required
                 className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm/6"
                 onChange={handleChange}
               />
@@ -119,6 +81,11 @@ const SignUp = () => {
             Login
           </Link>
         </p>
+        {errorMessage && (
+          <p className="text-red-600 text-lg text-center mt-3">
+            {errorMessage}
+          </p>
+        )}
       </div>
     </div>
   );
